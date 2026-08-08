@@ -1,6 +1,6 @@
 # Adopting xwa-sdk
 
-How XWA modules emit and consume shared data. The canonical definitions live in `schemas/` (JSON Schema); language bindings mirror them.
+How XWA modules emit and consume shared data. The canonical definitions live in `schemas/` (JSON Schema); language bindings mirror them. See [README.md](README.md) for the documentation index, [schemas.md](schemas.md) for the field-by-field reference and [bindings.md](bindings.md) for installation and usage.
 
 ## Core concepts
 
@@ -61,10 +61,4 @@ if (isFinding(event.payload)) {
 ## Validation
 
 - Python: `xwa_sdk.validation.validate_finding(data)` raises `jsonschema.exceptions.ValidationError` on invalid payloads.
-- Schemas are bundled inside the Python package under `xwa_sdk/schemas/` and copied 1:1 from `schemas/` — update both when changing a schema.
-
-## Versioning policy
-
-- Schemas evolve under `0.x`; breaking field removals bump the minor.
-- Bindings are versioned in lockstep with the schema set (`0.1.0`).
-- A module may declare the SDK version it was validated against in `tool_version`.
+- Schemas are bundled inside the Python package under `xwa_sdk/schemas/` and copied 1:1 from `schemas/` — update both when changing a schema (see [versioning.md](versioning.md)).

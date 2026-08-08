@@ -47,5 +47,9 @@ import { Event, isFinding } from "./bindings/typescript/src";
 
 ## Docs
 
+- [docs/README.md](docs/README.md) — documentation index
 - [ADOPTION.md](docs/ADOPTION.md) — how modules emit and consume shared data
+- [schemas.md](docs/schemas.md) — field-by-field schema reference
+- [bindings.md](docs/bindings.md) — language binding usage
+- [versioning.md](docs/versioning.md) — versioning and compatibility policy
 - [ROADMAP.md](ROADMAP.md) — development phases
