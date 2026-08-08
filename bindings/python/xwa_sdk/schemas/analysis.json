@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/analysis.json",
+  "title": "Analysis",
+  "description": "Top-level unit of work produced by an XWA tool: one scan, audit or profiling session against a target.",
+  "type": "object",
+  "required": ["id", "tool", "target", "status", "created_at"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier of the analysis (module-specific, e.g. scan or profile id)."
+    },
+    "tool": {
+      "type": "string",
+      "enum": ["samurai", "shinobi", "tengu", "kensei", "kabuki", "yari", "musha", "azuma"],
+      "description": "Module that produced the analysis."
+    },
+    "tool_version": {
+      "type": "string",
+      "description": "Version of the producing module."
+    },
+    "target": {
+      "type": "string",
+      "description": "Analyzed target (domain, URL or host)."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PENDING", "RUNNING", "COMPLETED", "ERROR", "CANCELLED"],
+      "description": "Lifecycle state of the analysis."
+    },
+    "analysis_type": {
+      "type": "string",
+      "description": "Module-specific kind of analysis, e.g. port_scan, crawler, audit, profile."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "started_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "error": {
+      "$ref": "error.json"
+    },
+    "summary": {
+      "type": ["object", "null"],
+      "description": "Optional aggregated result counts.",
+      "properties": {
+        "total_items": { "type": "integer" },
+        "by_severity": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "by_category": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

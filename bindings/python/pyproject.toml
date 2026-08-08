@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xwa-sdk"
+version = "0.1.0"
+description = "Shared data schemas and API contracts for the XWA ecosystem"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = ["jsonschema>=4.0"]
+
+[tool.setuptools]
+packages = ["xwa_sdk"]
+
+[tool.setuptools.package-data]
+xwa_sdk = ["schemas/*.json", "schemas/items/*.json"]

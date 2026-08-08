@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/route.json",
+  "title": "DiscoveredRoute",
+  "description": "kensei: SPA route discovered during profiling.",
+  "type": "object",
+  "required": [
+    "path"
+  ],
+  "properties": {
+    "path": {
+      "type": "string"
+    },
+    "framework": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "anyOf": [
+        {
+          "enum": [
+            "angular",
+            "react",
+            "vue"
+          ]
+        }
+      ]
+    },
+    "route_type": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "anyOf": [
+        {
+          "enum": [
+            "static",
+            "lazy",
+            "guard",
+            "param"
+          ]
+        }
+      ]
+    },
+    "module": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

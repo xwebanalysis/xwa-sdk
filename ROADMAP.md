@@ -5,28 +5,28 @@ This file is formatted to be synced automatically with GitHub Issues using the `
 
 ## Core Schemas <!-- phase:schemas -->
 
-- [ ] Define base result and finding schemas
-- [ ] Define scan and target descriptors
-- [ ] Define task and progress event schemas
-- [ ] Define error handling and status envelope
+- [x] Define base result and finding schemas
+- [x] Define scan and target descriptors
+- [x] Define task and progress event schemas
+- [x] Define error handling and status envelope
 
 ## API Contracts <!-- phase:contracts -->
 
 - [ ] Define inter-module REST contract conventions
-- [ ] Define WebSocket streaming contracts for live analysis
-- [ ] Define import/export interchange formats (JSON)
-- [ ] Document versioning and compatibility policy
+- [x] Define WebSocket streaming contracts for live analysis
+- [x] Define import/export interchange formats (JSON)
+- [x] Document versioning and compatibility policy
 
 ## Language Bindings <!-- phase:bindings -->
 
-- [ ] Generate Python package for FastAPI backends
+- [x] Generate Python package for FastAPI backends
 - [ ] Generate Rust crate for Axum backends
-- [ ] Generate TypeScript types for Angular frontends
-- [ ] Add JSON Schema validation utilities
+- [x] Generate TypeScript types for Angular frontends
+- [x] Add JSON Schema validation utilities
 
 ## Publishing & Adoption <!-- phase:publishing -->
 
 - [ ] Set up package publishing pipeline (PyPI, crates.io, npm)
-- [ ] Create consumer examples for each language binding
+- [x] Create consumer examples for each language binding
 - [ ] Write migration guide for existing modules
 - [ ] Integrate xwa-sdk into samurai as first consumer

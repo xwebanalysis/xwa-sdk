@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/dependency.json",
+  "title": "JsDependency",
+  "description": "kensei: JavaScript dependency detected from bundles or source maps.",
+  "type": "object",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "anyOf": [
+        {
+          "enum": [
+            "bundle",
+            "sourcemap",
+            "inline"
+          ]
+        }
+      ]
+    },
+    "package_manager": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "anyOf": [
+        {
+          "enum": [
+            "npm",
+            "yarn",
+            "pnpm",
+            "unknown"
+          ]
+        }
+      ]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/event.json",
+  "title": "Event",
+  "description": "Streaming envelope for live analysis progress over WebSocket or message queues.",
+  "type": "object",
+  "required": ["seq", "type", "tool", "analysis_id", "ts"],
+  "properties": {
+    "seq": {
+      "type": "integer",
+      "description": "Monotonic sequence number scoped to the analysis stream."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "analysis_started",
+        "analysis_progress",
+        "item_found",
+        "analysis_completed",
+        "analysis_error",
+        "log"
+      ]
+    },
+    "tool": {
+      "type": "string",
+      "enum": ["samurai", "shinobi", "tengu", "kensei", "kabuki", "yari", "musha", "azuma"]
+    },
+    "analysis_id": {
+      "type": "string",
+      "description": "Analysis this event belongs to."
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": ["object", "null"],
+      "description": "Event-specific payload. For item_found: a finding or module item. For analysis_progress: {percent?, message?}. For analysis_error: an error object.",
+      "additionalProperties": true
+    }
+  }
+}

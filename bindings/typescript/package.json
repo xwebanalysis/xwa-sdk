@@ -1,0 +1,15 @@
+{
+  "name": "xwa-sdk-types",
+  "version": "0.1.0",
+  "description": "Shared TypeScript types for the XWA ecosystem",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

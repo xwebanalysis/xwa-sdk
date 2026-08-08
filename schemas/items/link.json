@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/link.json",
+  "title": "DiscoveredLink",
+  "description": "samurai: link discovered during crawling.",
+  "type": "object",
+  "required": ["url"],
+  "properties": {
+    "url": { "type": "string", "format": "uri" },
+    "status_code": { "type": ["integer", "null"] },
+    "content_type": { "type": ["string", "null"] }
+  },
+  "additionalProperties": true
+}
