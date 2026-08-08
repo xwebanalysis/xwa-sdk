@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/error.json",
+  "title": "Error",
+  "description": "Unified error envelope for analysis failures.",
+  "type": "object",
+  "required": ["code", "message"],
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Stable machine-readable code, e.g. NETWORK_ERROR, TIMEOUT, INVALID_TARGET, INTERNAL."
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable description."
+    },
+    "detail": {
+      "type": ["object", "null"],
+      "description": "Structured context, module-specific."
+    },
+    "retryable": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

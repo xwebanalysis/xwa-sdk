@@ -1,0 +1,5 @@
+bindings/typescript/node_modules/
+bindings/typescript/dist/
+__pycache__/
+*.pyc
+.venv/

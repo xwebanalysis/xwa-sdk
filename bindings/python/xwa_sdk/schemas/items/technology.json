@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/technology.json",
+  "title": "Technology",
+  "description": "kensei: detected technology stack component.",
+  "type": "object",
+  "required": [
+    "category",
+    "name"
+  ],
+  "properties": {
+    "category": {
+      "type": "string",
+      "enum": [
+        "frontend",
+        "backend",
+        "cdn",
+        "analytics",
+        "hosting"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "version": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "confidence": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "anyOf": [
+        {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        }
+      ]
+    },
+    "evidence": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

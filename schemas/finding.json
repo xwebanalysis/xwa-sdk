@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/finding.json",
+  "title": "Finding",
+  "description": "A single observation produced by an XWA tool, mapped to the unified severity scale.",
+  "type": "object",
+  "required": [
+    "tool",
+    "severity",
+    "title",
+    "description"
+  ],
+  "properties": {
+    "id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional identifier; assigned when persisted."
+    },
+    "tool": {
+      "type": "string",
+      "enum": [
+        "samurai",
+        "shinobi",
+        "tengu",
+        "kensei",
+        "kabuki",
+        "yari",
+        "musha",
+        "azuma"
+      ]
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "info",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "description": "Unified severity. Module mapping: samurai info/low/medium/high/critical direct; tengu Pass→pass, Info→info, Warning→medium, Error→high; kensei confidence low/medium/high mapped to info/medium/high."
+    },
+    "category": {
+      "type": "string",
+      "description": "Tool-specific group. samurai: finding_type; tengu: category (performance, seo, a11y, best_practices); kensei: technology category."
+    },
+    "check": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Tool-specific check or sub-type identifier."
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "target_url": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri",
+      "description": "URL or resource the finding refers to."
+    },
+    "evidence": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Proof of the finding, module-specific.",
+      "properties": {
+        "snippet": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "poc_payload": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "cvss_score": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional CVSS score, kept as string to preserve precision."
+    },
+    "confidence": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "anyOf": [
+        {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        }
+      ]
+    },
+    "detected_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": true
+}
