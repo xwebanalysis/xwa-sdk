@@ -44,6 +44,38 @@ export const EVENT_TYPES = [
 ] as const;
 export type EventType = (typeof EVENT_TYPES)[number];
 
+/** Detection confidence (shared by finding/technology/waf). */
+export type Confidence = "high" | "medium" | "low";
+
+export const DETECTION_METHODS = ["header", "cookie", "body", "status", "dns", "tls"] as const;
+export type DetectionMethod = (typeof DETECTION_METHODS)[number];
+
+export const CACHING_STATES = ["hit", "miss", "stale", "unknown"] as const;
+export type Caching = (typeof CACHING_STATES)[number];
+
+export const CHALLENGE_KINDS = [
+  "captcha",
+  "js_challenge",
+  "block_page",
+  "interstitial",
+] as const;
+export type ChallengeKind = (typeof CHALLENGE_KINDS)[number];
+
+export const RATE_LIMIT_SCOPES = ["ip", "session", "global", "unknown"] as const;
+export type RateLimitScope = (typeof RATE_LIMIT_SCOPES)[number];
+
+export const API_PROTOCOLS = ["rest", "graphql", "grpc"] as const;
+export type ApiProtocol = (typeof API_PROTOCOLS)[number];
+
+export const DISCOVERY_SOURCES = [
+  "openapi",
+  "graphql_introspection",
+  "grpc_reflection",
+  "js_crawl",
+  "html",
+] as const;
+export type DiscoverySource = (typeof DISCOVERY_SOURCES)[number];
+
 export interface ErrorInfo {
   code: string;
   message: string;
@@ -82,7 +114,7 @@ export interface Finding {
   target_url?: string | null;
   evidence?: Record<string, unknown> | null;
   cvss_score?: string | null;
-  confidence?: "high" | "medium" | "low" | null;
+  confidence?: Confidence | null;
   detected_at?: string | null;
 }
 
@@ -105,7 +137,7 @@ export interface Technology {
   category: "frontend" | "backend" | "cdn" | "analytics" | "hosting";
   name: string;
   version?: string | null;
-  confidence?: "high" | "medium" | "low" | null;
+  confidence?: Confidence | null;
   evidence?: string | null;
 }
 
@@ -123,19 +155,89 @@ export interface JsDependency {
   package_manager?: "npm" | "yarn" | "pnpm" | "unknown" | null;
 }
 
+// ── kabuki / yari module items ──────────────────────────────────────────────
+
+/** kabuki: Web Application Firewall fingerprint. */
+export interface Waf {
+  vendor: string;
+  product?: string | null;
+  confidence?: Confidence | null;
+  detection_method?: DetectionMethod | null;
+  evidence?: string | null;
+  blocked?: boolean;
+  severity?: Severity | null;
+}
+
+/** kabuki: Content Delivery Network fingerprint. */
+export interface Cdn {
+  provider: string;
+  edge_nodes?: string[] | null;
+  origin_hidden?: boolean;
+  caching?: Caching | null;
+  evidence?: string | null;
+}
+
+/** kabuki: bot challenge or interstitial page. */
+export interface Challenge {
+  kind: ChallengeKind;
+  status_code?: number | null;
+  headers?: Record<string, unknown> | null;
+  bypass_indicators?: string[] | null;
+  response_time_ms?: number | null;
+  severity_hint?: Severity | null;
+}
+
+/** kabuki: rate limiting profile estimate. */
+export interface RateLimit {
+  scope: RateLimitScope;
+  limit?: number | null;
+  window_seconds?: number | null;
+  headers?: Record<string, unknown> | null;
+  threshold_estimate?: number | null;
+  recommended_delay_ms?: number | null;
+}
+
+/** yari: discovered API parameter. */
+export interface ApiParam {
+  name: string;
+  location?: string | null;
+  type?: string | null;
+  required?: boolean | null;
+}
+
+/** yari: API endpoint discovered through specs, reflection or crawling. */
+export interface ApiEndpoint {
+  protocol: ApiProtocol;
+  path: string;
+  method?: string | null;
+  host?: string | null;
+  params?: ApiParam[] | null;
+  auth_required?: boolean | null;
+  source?: DiscoverySource | null;
+  content_types?: string[] | null;
+  version?: string | null;
+}
+
 // ── Severity mapping ────────────────────────────────────────────────────────
 
-const MODULE_SEVERITY_MAP: Record<string, Severity> = {
+const TENGU_SEVERITY_MAP: Record<string, Severity> = {
   Pass: "pass",
   Info: "info",
   Warning: "medium",
   Error: "high",
 };
 
+/**
+ * Map a module-internal severity to the unified scale. Mirrors the Python
+ * `map_severity`: module-specific names are only translated for their own
+ * tool (`tengu`), otherwise an already-unified value passes through.
+ */
 export function mapSeverity(tool: Tool, severity: string): Severity {
-  const mapped = MODULE_SEVERITY_MAP[severity];
-  if (mapped) {
-    return mapped;
+  if (tool === "tengu") {
+    const mapped = TENGU_SEVERITY_MAP[severity];
+    if (mapped) {
+      return mapped;
+    }
   }
   if ((SEVERITIES as readonly string[]).includes(severity)) {
     return severity as Severity;
@@ -145,49 +247,70 @@ export function mapSeverity(tool: Tool, severity: string): Severity {
 
 // ── Type guards ─────────────────────────────────────────────────────────────
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
+}
+
+function isMember<T extends readonly string[]>(list: T, value: unknown): value is T[number] {
+  return typeof value === "string" && (list as readonly string[]).includes(value);
+}
+
 export function isAnalysis(value: unknown): value is Analysis {
-  if (typeof value !== "object" || value === null) {
+  if (!isRecord(value)) {
     return false;
   }
-  const v = value as Record<string, unknown>;
   return (
-    typeof v.id === "string" &&
-    typeof v.tool === "string" &&
-    (TOOLS as readonly string[]).includes(v.tool) &&
-    typeof v.target === "string" &&
-    typeof v.status === "string" &&
-    (ANALYSIS_STATUS as readonly string[]).includes(v.status) &&
-    typeof v.created_at === "string"
+    typeof value.id === "string" &&
+    isMember(TOOLS, value.tool) &&
+    typeof value.target === "string" &&
+    isMember(ANALYSIS_STATUS, value.status) &&
+    typeof value.created_at === "string"
   );
 }
 
 export function isFinding(value: unknown): value is Finding {
-  if (typeof value !== "object" || value === null) {
+  if (!isRecord(value)) {
     return false;
   }
-  const v = value as Record<string, unknown>;
   return (
-    typeof v.tool === "string" &&
-    (TOOLS as readonly string[]).includes(v.tool) &&
-    typeof v.severity === "string" &&
-    (SEVERITIES as readonly string[]).includes(v.severity) &&
-    typeof v.title === "string" &&
-    typeof v.description === "string"
+    isMember(TOOLS, value.tool) &&
+    isMember(SEVERITIES, value.severity) &&
+    typeof value.title === "string" &&
+    typeof value.description === "string"
   );
 }
 
 export function isEvent(value: unknown): value is Event {
-  if (typeof value !== "object" || value === null) {
+  if (!isRecord(value)) {
     return false;
   }
-  const v = value as Record<string, unknown>;
   return (
-    typeof v.seq === "number" &&
-    typeof v.type === "string" &&
-    (EVENT_TYPES as readonly string[]).includes(v.type) &&
-    typeof v.tool === "string" &&
-    (TOOLS as readonly string[]).includes(v.tool) &&
-    typeof v.analysis_id === "string" &&
-    typeof v.ts === "string"
+    typeof value.seq === "number" &&
+    isMember(EVENT_TYPES, value.type) &&
+    isMember(TOOLS, value.tool) &&
+    typeof value.analysis_id === "string" &&
+    typeof value.ts === "string"
+  );
+}
+
+export function isWaf(value: unknown): value is Waf {
+  return isRecord(value) && typeof value.vendor === "string";
+}
+
+export function isCdn(value: unknown): value is Cdn {
+  return isRecord(value) && typeof value.provider === "string";
+}
+
+export function isChallenge(value: unknown): value is Challenge {
+  return isRecord(value) && isMember(CHALLENGE_KINDS, value.kind);
+}
+
+export function isRateLimit(value: unknown): value is RateLimit {
+  return isRecord(value) && isMember(RATE_LIMIT_SCOPES, value.scope);
+}
+
+export function isApiEndpoint(value: unknown): value is ApiEndpoint {
+  return (
+    isRecord(value) && isMember(API_PROTOCOLS, value.protocol) && typeof value.path === "string"
   );
 }

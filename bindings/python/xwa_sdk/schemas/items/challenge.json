@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/challenge.json",
+  "title": "Challenge",
+  "description": "kabuki: bot challenge or interstitial page observed while probing a target.",
+  "type": "object",
+  "required": ["kind"],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": ["captcha", "js_challenge", "block_page", "interstitial"],
+      "description": "Challenge family observed."
+    },
+    "status_code": {
+      "type": ["integer", "null"],
+      "description": "HTTP status code of the challenge response."
+    },
+    "headers": {
+      "type": ["object", "null"],
+      "description": "Relevant response headers (server, cf-mitigated, set-cookie...).",
+      "additionalProperties": true
+    },
+    "bypass_indicators": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Signals suggesting the challenge could be bypassed safely."
+    },
+    "response_time_ms": {
+      "type": ["number", "null"],
+      "description": "Time observed for the challenge interaction, in milliseconds."
+    },
+    "severity_hint": {
+      "type": ["string", "null"],
+      "enum": ["pass", "info", "low", "medium", "high", "critical", null],
+      "description": "Suggested unified severity for the finding."
+    }
+  },
+  "additionalProperties": true
+}

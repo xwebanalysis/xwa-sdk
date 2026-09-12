@@ -1,16 +1,3 @@
-Metadata-Version: 2.4
-Name: xwa-sdk
-Version: 0.2.0
-Summary: Shared data schemas and API contracts for the XWA ecosystem
-License-Expression: MIT
-Project-URL: Repository, https://github.com/xwebanalysis/xwa-sdk
-Project-URL: Documentation, https://github.com/xwebanalysis/xwa-sdk/tree/main/docs
-Requires-Python: >=3.10
-Description-Content-Type: text/markdown
-Requires-Dist: jsonschema>=4.0
-Provides-Extra: test
-Requires-Dist: pytest>=8; extra == "test"
-
 # xwa-sdk — Python bindings
 
 Dataclasses, offline JSON Schema validation and severity mapping for the XWA

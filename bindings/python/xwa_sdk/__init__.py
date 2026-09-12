@@ -6,22 +6,31 @@ from .models import (
     SEVERITIES,
     TOOLS,
     Analysis,
+    ApiEndpoint,
+    Cdn,
+    Challenge,
     DiscoveredLink,
     DiscoveredRoute,
     Error,
     Event,
     Finding,
     JsDependency,
+    RateLimit,
     Summary,
     Technology,
+    Waf,
     from_dict,
     map_severity,
     to_dict,
 )
 from .validation import (
+    ITEM_KINDS,
+    ValidationError,
     is_valid_analysis,
+    is_valid_error,
     is_valid_event,
     is_valid_finding,
+    is_valid_item,
     validate_analysis,
     validate_error,
     validate_event,
@@ -29,13 +38,14 @@ from .validation import (
     validate_item,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "TOOLS",
     "ANALYSIS_STATUS",
     "SEVERITIES",
     "EVENT_TYPES",
+    "ITEM_KINDS",
     "Analysis",
     "Finding",
     "Event",
@@ -45,6 +55,11 @@ __all__ = [
     "Technology",
     "DiscoveredRoute",
     "JsDependency",
+    "Waf",
+    "Cdn",
+    "Challenge",
+    "RateLimit",
+    "ApiEndpoint",
     "to_dict",
     "from_dict",
     "map_severity",
@@ -56,5 +71,8 @@ __all__ = [
     "is_valid_analysis",
     "is_valid_finding",
     "is_valid_event",
+    "is_valid_error",
+    "is_valid_item",
+    "ValidationError",
     "__version__",
 ]

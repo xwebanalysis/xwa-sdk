@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/cdn.json",
+  "title": "Cdn",
+  "description": "kabuki: Content Delivery Network fingerprint detected for a target.",
+  "type": "object",
+  "required": ["provider"],
+  "properties": {
+    "provider": {
+      "type": "string",
+      "description": "CDN provider, e.g. Cloudflare, Fastly, CloudFront."
+    },
+    "edge_nodes": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Observed edge node identifiers (POP codes, server headers)."
+    },
+    "origin_hidden": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the origin appears to be shielded by the CDN."
+    },
+    "caching": {
+      "type": ["string", "null"],
+      "enum": ["hit", "miss", "stale", "unknown", null],
+      "description": "Cache status observed on the probed response."
+    },
+    "evidence": {
+      "type": ["string", "null"],
+      "description": "Raw evidence (header value or snippet)."
+    }
+  },
+  "additionalProperties": true
+}
