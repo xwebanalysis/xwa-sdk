@@ -33,14 +33,11 @@
         "string",
         "null"
       ],
-      "anyOf": [
-        {
-          "enum": [
-            "high",
-            "medium",
-            "low"
-          ]
-        }
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        null
       ]
     },
     "evidence": {

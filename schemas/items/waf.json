@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/waf.json",
+  "title": "Waf",
+  "description": "kabuki: Web Application Firewall fingerprint detected for a target.",
+  "type": "object",
+  "required": ["vendor"],
+  "properties": {
+    "vendor": {
+      "type": "string",
+      "description": "WAF vendor, e.g. Cloudflare, Akamai, AWS, F5."
+    },
+    "product": {
+      "type": ["string", "null"],
+      "description": "Specific product or plan when known."
+    },
+    "confidence": {
+      "type": ["string", "null"],
+      "enum": ["high", "medium", "low", null],
+      "description": "Detection confidence. Optional enum fields accept null."
+    },
+    "detection_method": {
+      "type": ["string", "null"],
+      "enum": ["header", "cookie", "body", "status", "dns", "tls", null],
+      "description": "Primary signal used for the fingerprint."
+    },
+    "evidence": {
+      "type": ["string", "null"],
+      "description": "Raw evidence (header value, cookie name, snippet)."
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the WAF actively blocked the probe."
+    },
+    "severity": {
+      "type": ["string", "null"],
+      "enum": ["pass", "info", "low", "medium", "high", "critical", null],
+      "description": "Unified severity when reported as a finding."
+    }
+  },
+  "additionalProperties": true
+}

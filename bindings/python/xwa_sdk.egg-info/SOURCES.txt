@@ -1,7 +1,13 @@
+README.md
 pyproject.toml
+tests/test_new_items.py
+tests/test_schemas_sync.py
+tests/test_to_dict_recursive.py
+tests/test_validation_offline.py
 tests/test_xwa_sdk.py
 xwa_sdk/__init__.py
 xwa_sdk/models.py
+xwa_sdk/py.typed
 xwa_sdk/validation.py
 xwa_sdk.egg-info/PKG-INFO
 xwa_sdk.egg-info/SOURCES.txt
@@ -12,7 +18,12 @@ xwa_sdk/schemas/analysis.json
 xwa_sdk/schemas/error.json
 xwa_sdk/schemas/event.json
 xwa_sdk/schemas/finding.json
+xwa_sdk/schemas/items/api_endpoint.json
+xwa_sdk/schemas/items/cdn.json
+xwa_sdk/schemas/items/challenge.json
 xwa_sdk/schemas/items/dependency.json
 xwa_sdk/schemas/items/link.json
+xwa_sdk/schemas/items/rate_limit.json
 xwa_sdk/schemas/items/route.json
 xwa_sdk/schemas/items/technology.json
+xwa_sdk/schemas/items/waf.json

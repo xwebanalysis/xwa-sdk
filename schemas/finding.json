@@ -108,15 +108,13 @@
         "string",
         "null"
       ],
-      "anyOf": [
-        {
-          "enum": [
-            "high",
-            "medium",
-            "low"
-          ]
-        }
-      ]
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        null
+      ],
+      "description": "Detection confidence. Optional fields accept null."
     },
     "detected_at": {
       "type": [

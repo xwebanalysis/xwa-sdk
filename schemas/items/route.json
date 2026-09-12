@@ -16,14 +16,11 @@
         "string",
         "null"
       ],
-      "anyOf": [
-        {
-          "enum": [
-            "angular",
-            "react",
-            "vue"
-          ]
-        }
+      "enum": [
+        "angular",
+        "react",
+        "vue",
+        null
       ]
     },
     "route_type": {
@@ -31,15 +28,12 @@
         "string",
         "null"
       ],
-      "anyOf": [
-        {
-          "enum": [
-            "static",
-            "lazy",
-            "guard",
-            "param"
-          ]
-        }
+      "enum": [
+        "static",
+        "lazy",
+        "guard",
+        "param",
+        null
       ]
     },
     "module": {

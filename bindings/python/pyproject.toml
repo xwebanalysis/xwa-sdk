@@ -1,18 +1,33 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "xwa-sdk"
-version = "0.1.0"
+version = "0.2.0"
 description = "Shared data schemas and API contracts for the XWA ecosystem"
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "MIT" }
+license = "MIT"
+# NOTE: the SPDX license expression is declared for tooling, but the XWA
+# ecosystem owner has not committed an ecosystem-wide LICENSE file yet.
+# See the repository CHANGELOG for the licensing note.
 dependencies = ["jsonschema>=4.0"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.urls]
+Repository = "https://github.com/xwebanalysis/xwa-sdk"
+Documentation = "https://github.com/xwebanalysis/xwa-sdk/tree/main/docs"
 
 [tool.setuptools]
 packages = ["xwa_sdk"]
 
 [tool.setuptools.package-data]
-xwa_sdk = ["schemas/*.json", "schemas/items/*.json"]
+xwa_sdk = ["py.typed", "schemas/*.json", "schemas/items/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Run the suite from the source tree without an editable install.
+pythonpath = ["."]

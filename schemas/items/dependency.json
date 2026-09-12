@@ -22,14 +22,11 @@
         "string",
         "null"
       ],
-      "anyOf": [
-        {
-          "enum": [
-            "bundle",
-            "sourcemap",
-            "inline"
-          ]
-        }
+      "enum": [
+        "bundle",
+        "sourcemap",
+        "inline",
+        null
       ]
     },
     "package_manager": {
@@ -37,15 +34,12 @@
         "string",
         "null"
       ],
-      "anyOf": [
-        {
-          "enum": [
-            "npm",
-            "yarn",
-            "pnpm",
-            "unknown"
-          ]
-        }
+      "enum": [
+        "npm",
+        "yarn",
+        "pnpm",
+        "unknown",
+        null
       ]
     }
   },

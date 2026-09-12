@@ -1,0 +1,22 @@
+[package]
+name = "xwa-sdk"
+version = "0.2.0"
+edition = "2021"
+rust-version = "1.75"
+description = "Shared data models for the XWA ecosystem (mirrors xwa-sdk JSON Schemas)"
+license = "MIT"
+repository = "https://github.com/xwebanalysis/xwa-sdk"
+documentation = "https://github.com/xwebanalysis/xwa-sdk/tree/main/docs"
+readme = "README.md"
+keywords = ["xwa", "serde", "web-analysis", "schemas"]
+categories = ["api-bindings"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = { version = "2", optional = true }
+
+[features]
+default = []
+# Derive thiserror-based Display/Error impls for [`SdkError`].
+thiserror = ["dep:thiserror"]

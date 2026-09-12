@@ -113,12 +113,96 @@ class JsDependency:
     package_manager: str | None = None
 
 
+# ── kabuki / yari module items ──────────────────────────────────────────────
+
+@dataclass
+class Waf:
+    """kabuki: Web Application Firewall fingerprint."""
+
+    vendor: str
+    product: str | None = None
+    confidence: str | None = None
+    detection_method: str | None = None
+    evidence: str | None = None
+    blocked: bool = False
+    severity: str | None = None
+
+
+@dataclass
+class Cdn:
+    """kabuki: Content Delivery Network fingerprint."""
+
+    provider: str
+    edge_nodes: list[str] | None = None
+    origin_hidden: bool = False
+    caching: str | None = None
+    evidence: str | None = None
+
+
+@dataclass
+class Challenge:
+    """kabuki: bot challenge or interstitial page."""
+
+    kind: str
+    status_code: int | None = None
+    headers: dict | None = None
+    bypass_indicators: list[str] | None = None
+    response_time_ms: float | None = None
+    severity_hint: str | None = None
+
+
+@dataclass
+class RateLimit:
+    """kabuki: rate limiting profile estimate."""
+
+    scope: str
+    limit: int | None = None
+    window_seconds: int | None = None
+    headers: dict | None = None
+    threshold_estimate: int | None = None
+    recommended_delay_ms: int | None = None
+
+
+@dataclass
+class ApiEndpoint:
+    """yari: API endpoint discovered through specs, reflection or crawling."""
+
+    protocol: str
+    path: str
+    method: str | None = None
+    host: str | None = None
+    params: list[dict] | None = None
+    auth_required: bool | None = None
+    source: str | None = None
+    content_types: list[str] | None = None
+    version: str | None = None
+
+
 # ── (de)serialization ───────────────────────────────────────────────────────
 
-def to_dict(obj: Any) -> dict:
-    """Convert a dataclass instance (nested included) to a plain dict, omitting None values."""
-    data = asdict(obj)
-    return {k: v for k, v in data.items() if v is not None}
+def _strip_none(value: Any) -> Any:
+    """Recursively drop ``None`` values from dict keys and list/tuple items."""
+    if isinstance(value, dict):
+        return {k: _strip_none(v) for k, v in value.items() if v is not None}
+    if isinstance(value, list):
+        return [_strip_none(v) for v in value if v is not None]
+    if isinstance(value, tuple):
+        return tuple(_strip_none(v) for v in value if v is not None)
+    return value
+
+
+def to_dict(obj: Any) -> Any:
+    """Convert a dataclass (or plain structure) to a JSON-ready value.
+
+    Nested dataclasses are converted through ``dataclasses.asdict`` and ``None``
+    values are omitted recursively: dict entries whose value is ``None`` and
+    ``None`` items inside lists. This includes payloads such as
+    ``Finding.evidence``, ``Challenge.headers`` or ``ApiEndpoint.params`` — so
+    the output validates against the canonical schemas.
+    """
+    if is_dataclass(obj) and not isinstance(obj, type):
+        return _strip_none(asdict(obj))
+    return _strip_none(obj)
 
 
 def _unwrap_optional(ftype: Any) -> Any:

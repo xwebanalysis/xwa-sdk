@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/xwebanalysis/xwa-sdk/schemas/items/api_endpoint.json",
+  "title": "ApiEndpoint",
+  "description": "yari: API endpoint discovered through specs, reflection or crawling.",
+  "type": "object",
+  "required": ["protocol", "path"],
+  "properties": {
+    "protocol": {
+      "type": "string",
+      "enum": ["rest", "graphql", "grpc"],
+      "description": "API protocol family."
+    },
+    "method": {
+      "type": ["string", "null"],
+      "description": "HTTP method for REST endpoints (GET, POST...)."
+    },
+    "path": {
+      "type": "string",
+      "description": "Endpoint path or GraphQL/gRPC operation path."
+    },
+    "host": {
+      "type": ["string", "null"],
+      "description": "Host or authority the endpoint was discovered on."
+    },
+    "params": {
+      "type": ["array", "null"],
+      "description": "Discovered parameters.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "location": { "type": ["string", "null"], "description": "path, query, header, body or cookie." },
+          "type": { "type": ["string", "null"], "description": "Declared or inferred parameter type." },
+          "required": { "type": ["boolean", "null"] }
+        },
+        "additionalProperties": true
+      }
+    },
+    "auth_required": {
+      "type": ["boolean", "null"],
+      "description": "Whether authentication appears to be required."
+    },
+    "source": {
+      "type": ["string", "null"],
+      "enum": ["openapi", "graphql_introspection", "grpc_reflection", "js_crawl", "html", null],
+      "description": "How the endpoint was discovered."
+    },
+    "content_types": {
+      "type": ["array", "null"],
+      "items": { "type": "string" },
+      "description": "Request/response content types observed."
+    },
+    "version": {
+      "type": ["string", "null"],
+      "description": "API version when declared (v1, 2024-10-01...)."
+    }
+  },
+  "additionalProperties": true
+}
