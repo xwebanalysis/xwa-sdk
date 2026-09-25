@@ -38,7 +38,7 @@ from .validation import (
     validate_item,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 __all__ = [
     "TOOLS",

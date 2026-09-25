@@ -10,6 +10,16 @@ Version numbers follow the [versioning policy](docs/versioning.md).
 > `LICENSE` file, so the license is **not final** — the metadata is a
 > placeholder, not a grant. Do not add a `LICENSE` file until the owner decides.
 
+## [0.2.1] - 2026-09-25
+
+### Changed
+
+- Version bumped to `0.2.1` in `pyproject.toml`, `package.json` (and
+  lockfile), the crate manifest and `xwa_sdk.__version__` — a metadata-only
+  release so consumers pick up a fresh build.
+- Verified bindings across Python 3.14 / TypeScript 5 / Rust 1.96; no schema
+  changes. Consumer imports (`Event`, `to_dict`, `Error`) confirmed compatible.
+
 ## [0.2.0] - 2026-09-12
 
 ### Fixed
