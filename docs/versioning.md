@@ -19,7 +19,7 @@ Examples:
 
 - Bindings are versioned in lockstep with the schema set. A binding release is expected to validate against the schemas of the same version.
 - A module consuming a binding declares the SDK version it was validated against in the `tool_version` field of its analyses.
-- Python, TypeScript and Rust carry the same version number; `xwa_sdk.__version__` is checked by the test suite.
+- Python, TypeScript and Rust carry the same version number; `xwa_sdk.__version__` is kept in lockstep with the package metadata on every release.
 
 ## Compatibility guarantees
 

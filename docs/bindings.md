@@ -85,8 +85,8 @@ from xwa_sdk import is_valid_analysis, is_valid_finding, is_valid_event, is_vali
 
 ```bash
 cd bindings/python
-~/.local/bin/uv venv --python 3.13 --seed .venv
-.venv/bin/pip install "jsonschema>=4.0" "pytest>=8"
+python3 -m venv .venv   # Python 3.10+ (verified on 3.14)
+.venv/bin/pip install -e ".[test]"
 .venv/bin/pytest -q
 ```
 

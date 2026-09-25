@@ -6,7 +6,7 @@
 
 <hr>
 
-<p><strong>Status: <em>Active</em></strong> (v0.2.0)</p>
+<p><strong>Status: <em>Active</em></strong> (v0.2.1)</p>
 
 <p>Shared contracts consumed by all XWA tools for cross-module integration. JSON Schema is the source of truth; bindings mirror it per language.</p>
 
@@ -71,8 +71,10 @@ assert_eq!(map_severity("tengu", "Error").unwrap(), Severity::High);
 ## Tests
 
 ```bash
-# Python (from bindings/python, with a uv/pyenv venv)
-.venv/bin/pytest -q
+# Python (from the repo root; verified on Python 3.14)
+python3 -m venv bindings/python/.venv
+bindings/python/.venv/bin/pip install -e "bindings/python[test]"
+cd bindings/python && .venv/bin/pytest -q
 
 # TypeScript
 cd bindings/typescript && npm test

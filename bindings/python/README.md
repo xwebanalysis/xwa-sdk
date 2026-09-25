@@ -39,8 +39,8 @@ map_severity("tengu", "Warning")  # "medium"
 ## Tests
 
 ```bash
-~/.local/bin/uv venv --python 3.13 --seed .venv
-.venv/bin/pip install "jsonschema>=4.0" "pytest>=8"
+python3 -m venv .venv   # Python 3.10+ (verified on 3.14)
+.venv/bin/pip install -e ".[test]"
 .venv/bin/pytest -q
 ```
 
