@@ -85,10 +85,9 @@ cd bindings/rust && cargo test
 
 ## License
 
-The bindings declare `MIT` in their package metadata (a build-tooling
-requirement), but the ecosystem owner has **not** published an ecosystem-wide
-`LICENSE` file yet. The license is therefore not final; see the note at the top
-of [CHANGELOG.md](CHANGELOG.md).
+Proprietary — All rights reserved. See [LICENSE](LICENSE) for the full terms.
+The `MIT` placeholders in the binding metadata have been removed.
+For permission requests: x@xscriptor.com
 
 ## Docs
 

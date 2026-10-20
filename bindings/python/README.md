@@ -47,8 +47,7 @@ python3 -m venv .venv   # Python 3.10+ (verified on 3.14)
 The suite includes a test that fails if `xwa_sdk/schemas/` drifts from the
 canonical `schemas/` tree (fix it with `python scripts/sync_schemas.py`).
 
-## License note
+## License
 
-`pyproject.toml` declares `license = "MIT"` because build tooling requires a
-value, but the ecosystem owner has not published a `LICENSE` file. The license
-is not final — see the note at the top of the repository `CHANGELOG.md`.
+Proprietary — All rights reserved. See the repository [LICENSE](../../LICENSE)
+for the full terms. For permission requests: x@xscriptor.com
