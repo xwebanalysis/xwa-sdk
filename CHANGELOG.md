@@ -4,11 +4,17 @@ All notable changes to the XWA SDK are documented here.
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) (simplified).
 Version numbers follow the [versioning policy](docs/versioning.md).
 
-> **License note (owner decision pending):** the Python, TypeScript and Rust
-> bindings declare `MIT` in their package metadata because the build tooling
-> requires a value. The XWA ecosystem owner has not published an ecosystem-wide
-> `LICENSE` file, so the license is **not final** — the metadata is a
-> placeholder, not a grant. Do not add a `LICENSE` file until the owner decides.
+> **License (2026-10-20):** proprietary, all rights reserved. See
+> [LICENSE](LICENSE) for the full terms. The `MIT` placeholders in the binding
+> manifests have been removed (Python: `Proprietary`, TypeScript: `UNLICENSED`,
+> Rust: `license-file`).
+
+## [Unreleased]
+
+### Changed
+
+- Replaced the placeholder `MIT` metadata in the Python, TypeScript and Rust
+  bindings with the proprietary XWA license.
 
 ## [0.2.1] - 2026-09-25
 

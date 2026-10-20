@@ -2,7 +2,8 @@
   "name": "xwa-sdk-types",
   "version": "0.2.1",
   "description": "Shared TypeScript types for the XWA ecosystem",
-  "license": "MIT",
+  "private": true,
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/xwebanalysis/xwa-sdk.git",
